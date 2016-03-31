@@ -137,7 +137,7 @@ class AptS3(object):
                 "No architcture given and unable to determine one for {0}. Please specify one with --arch [i386|amd64].".format(deb))
             exit(1)
 
-        if arch == 'all' & & len(self.manifests) == 0:
+        if arch == 'all' and len(self.manifests) == 0:
             self.log.error(
                 'Package {0} had architecture "all" however noexisting package lists exist. This can often happen if the first package you are add to a new repository is an "all" architecture file. Please use --arch [i386|amd64] or another platform type to upload the file.'.format(deb))
             exit(1)
@@ -147,7 +147,7 @@ class AptS3(object):
 
         self.manifests[arch].add(pkg)
 
-        if arch == 'all'
+        if arch == 'all':
             self.packages_arch_all.append(pkg)
 
     def _update_manifests(self):
