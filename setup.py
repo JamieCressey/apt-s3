@@ -31,7 +31,9 @@ setup(
     long_description=open('README.rst').read(),
     author='Jamie Cressey',
     url='https://github.com/JamieCressey/apt-s3',
-    scripts=[],
+    scripts=[
+        "scripts/apt-s3"
+    ],
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     install_requires=requires,
