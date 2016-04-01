@@ -22,6 +22,9 @@ With ``apt-s3``, there is no need for this. ``apt-s3`` features:
    already there.
 -  Updates the Release file with the new hashes and file sizes.
 
+Packages within your new S3 repository can then be accessed using
+`apt-transport-s3 <https://github.com/JamieCressey/apt-transport-s3>`__
+
 Getting Started
 ---------------
 
