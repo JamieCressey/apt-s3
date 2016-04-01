@@ -20,7 +20,7 @@ requires = [
 
 
 def get_version():
-    init = open(os.path.join(ROOT, 'apt-s3', '__init__.py')).read()
+    init = open(os.path.join(ROOT, 'apts3', '__init__.py')).read()
     return VERSION_RE.search(init).group(1)
 
 
