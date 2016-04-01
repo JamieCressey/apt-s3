@@ -1,0 +1,2 @@
+class Lock(object):
+    pass

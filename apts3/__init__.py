@@ -20,6 +20,7 @@ import sys
 import json
 import pwd
 import os
+import apt.resources
 from datetime import datetime, timedelta
 from time import sleep
 
@@ -123,11 +124,17 @@ class AptS3(object):
                 Key=lockfile)
 
     def _parse_manifest(self, arch):
-        self.manifests[arch] = Manifest(self.args, arch)
+        self.manifests[arch] = apt.resources.Manifest(
+            bucket=self.args.bucket,
+            codename=self.args.codename,
+            component=self.args.component,
+            architecture=arch,
+            visibility=self.args.visibility,
+            s3=self.s3)
 
     def _parse_package(self, deb):
         self.log.info("Examining package file {}".format(deb))
-        pkg = Package(deb)
+        pkg = apt.resources.Package(deb)
         if self.args.arch:
             arch = self.args.arch
         elif pkg.architecture:
@@ -165,7 +172,7 @@ class AptS3(object):
 
         for arch, manifest in self.manifests.iteritems():
             self._check_lock(arch)
-            manifest.write_to_s3
+            manifest.write_to_s3()
             self.release.update_manifest(manifest)
             self.log.info('Update complete.')
             self._delete_lock(arch)
@@ -181,7 +188,7 @@ class AptS3(object):
 
         self.log.info("Retrieving existing manifests")
 
-        self.release = Release(self.args)
+        self.release = apt.resources.Release(self.args)
         self.manifests = {}
 
         map(self._parse_manifest, self.release['architectures'])
